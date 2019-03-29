@@ -1,35 +1,16 @@
 '''
-Created on 25 mars 2019
+Created on 29 mars 2019
 
 @author: galvesda
 '''
-
-
 import math
 import numpy as np
-import visualization as vis
 
 from scipy.spatial.distance import euclidean
 from scipy.spatial.kdtree import KDTree
 
-import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
 
-
-def main():
-    data = pd.read_csv("exemplo-paper.csv", sep=',',header=None)
-    
-    ML = [(4,13),(7,10),(19,20),(16,22)]
-    CL = [(5,8),(18,21)]
-    
-    clusterer = CDBSCAN(minPts=2, eps=3)
-    partition = clusterer.fit(data.values,ML,CL)
-    
-#     vis.plot_pairs(data.values, ml, '-', 'gray')
-#     vis.plot_pairs(data.values, cl, '-', 'tomato')
-    vis.plot(data.values, partition, partition)
-    vis.show()
-    
 
 class CDBSCAN:
     
@@ -131,7 +112,8 @@ class CDBSCAN:
         cluster_index = 0
         for cluster in clusters:
             partition[cluster] = cluster_index
-            cluster_index +=1           
+            cluster_index +=1  
+        return partition         
     
     def extract_leafnodes(self, node):
         if isinstance(node, KDTree.leafnode):
@@ -180,6 +162,3 @@ class CDBSCAN:
             min_index_cluster
         return None
         
-    
-if __name__== "__main__":
-    main()
